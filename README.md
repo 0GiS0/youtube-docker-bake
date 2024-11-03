@@ -43,6 +43,8 @@ La configuración equivalente a este comando sería `bake-multiple-platforms.hcl
 
 ```bash
 docker buildx bake --file bake-multiple-platforms.hcl 
+
+docker images --tree
 ```
 
 ### 4. Imágenes con múltiples contextos
@@ -76,10 +78,14 @@ docker rm -f halloween
 Si por ejemplo queremos usar un builder de Docker Build Cloud lo hacemos así:
 
 ```bash
-docker build --builder 0gis0-cloud-returngis -t tour-of-heroes-api:v1 tour-of-heroes-api
+docker build --builder cloud-0gis0-returngis -t tour-of-heroes-api:v1 tour-of-heroes-api
 ```
 
 Y lo equivalente en bake estaría en el archivo `bake-other-builders.hcl`.
+
+```bash
+docker buildx bake --file bake-other-builders.hcl --builder cloud-0gis0-returngis
+```
 
 
 ## 6. Exportar e importar caché
