@@ -1,3 +1,5 @@
+ARG NGINX_VERSION=alpine
+
 # Etapa 1: Construcción de la aplicación Angular
 FROM node:lts-alpine AS build
 
@@ -17,7 +19,7 @@ COPY . .
 RUN npm run build --prod
 
 # Etapa 2: Servir la aplicación con Nginx
-FROM nginx:alpine
+FROM nginx:${NGINX_VERSION}
 
 # Copia los archivos construidos desde la etapa anterior
 COPY --from=build /app/dist/angular-tour-of-heroes /usr/share/nginx/html

@@ -13,7 +13,7 @@ docker build -t tour-of-heroes-api:v1 tour-of-heroes-api
 El archivo `docker-bake.hcl`contiene la configuración para este caso. Para lanzarlo hay que usar este comando:
 
 ```bash
-docker buildx bake
+docker buildx bake 
 ```
 
 ## 2. Construir más de una imagen a la vez
@@ -33,9 +33,7 @@ Para lanzarlo hay que usar este comando:
 docker buildx bake --file bake-multiple-images.hcl
 ```
 
-
-
-## 2. Generar imágen multiplataforma
+## 3. Generar imágen multiplataforma
 
 ```bash
 docker build --platform linux/arm64,linux/amd64,linux/386 -t tour-of-heroes-api:v1 tour-of-heroes-api
@@ -47,7 +45,7 @@ La configuración equivalente a este comando sería `bake-multiple-platforms.hcl
 docker buildx bake --file bake-multiple-platforms.hcl
 ```
 
-### 3. Imágenes con múltiples contextos
+### 4. Imágenes con múltiples contextos
 
 Otra de las opciones avanzadas que podemos utilizar con BuildKit es la de poder tener múltiples contextos. En este caso, por ejemplo, podríamos tener un contexto local y otro remoto:
 
@@ -73,7 +71,7 @@ docker rm -f halloween
 ```
 
 
-## 3. Usar otros builders que no sea el por defecto
+## 5. Usar otros builders que no sea el por defecto
 
 Si por ejemplo queremos usar un builder de Docker Build Cloud lo hacemos así:
 
@@ -84,7 +82,7 @@ docker build --builder 0gis0-cloud-returngis -t tour-of-heroes-api:v1 tour-of-he
 Y lo equivalente en bake estaría en el archivo `bake-other-builders.hcl`.
 
 
-## 4. Exportar e importar caché
+## 6. Exportar e importar caché
 
 Y ya por último, si quisieramos exportar/importar la cache, el comando sería:
 
@@ -96,6 +94,15 @@ Y la configuración equivalente en bake estaría en el archivo `bake-cache.hcl`.
 
 ```bash
 docker buildx bake --file bake-cache.hcl
+```
+
+## 5. Comprobar que un archivo bake está bien definido
+
+Puedes usar el parámetro `--check` para comprobar que el archivo bake está bien definido:
+
+```bash
+# Check that the configuration is correct
+docker buildx bake --call check --file bake-cache.hcl
 ```
 
 ## 5. Monstruo final

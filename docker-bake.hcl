@@ -1,7 +1,11 @@
+variable "TAG" {
+    default = "v3"
+}
+
 target "default" {
 
     context = "./tour-of-heroes-api"
     dockerfile = "Dockerfile"
 
-    tags = ["tour-of-heroes-api:latest"]
+    tags = ["tour-of-heroes-api:${TAG}"]
 }
