@@ -92,8 +92,19 @@ Y ya por último, si quisieramos exportar/importar la cache, el comando sería:
 docker build --build-arg BUILDKIT_INLINE_CACHE=1 --cache-to type=local,dest=./cache -t tour-of-heroes-angular .
 ```
 
+Y la configuración equivalente en bake estaría en el archivo `bake-cache.hcl`.
 
+```bash
+docker buildx bake --file bake-cache.hcl
+```
 
+## 5. Monstruo final
+
+Y si juntamos todos los ejemplos en algo que pudiera ser un ejemplo real, tendríamos algo así:
+
+```bash
+docker buildx bake --file bake-final.hcl
+```
 
 ¡No te olvides de darle una estrella 🌟 al repositorio si te ha gustado el contenido! Y de suscribirte a mi canal de YouTube ❤️
 
