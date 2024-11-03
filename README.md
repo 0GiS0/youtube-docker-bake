@@ -29,6 +29,32 @@ La configuración equivalente a este comando sería `bake-multiple-platforms.hcl
 docker buildx bake --file bake-multiple-platforms.hcl
 ```
 
+### 3. Imágenes con múltiples contextos
+
+Otra de las opciones avanzadas que podemos utilizar con BuildKit es la de poder tener múltiples contextos. En este caso, por ejemplo, podríamos tener un contexto local y otro remoto:
+
+```bash
+docker build \
+--build-context app=./halloween-content \
+--build-context config=https://github.com/0GiS0/youtube-docker-buildx.git#main \
+-t halloween:multicontext-remote \
+-f Dockerfile.multicontext.remote .
+```
+
+En el archivo bake-multicontext.hcl se muestra cómo sería la configuración para este caso.
+
+```bash
+docker buildx bake --file bake-multicontext.hcl
+```
+
+Para probar el resultado puedes lanzar el siguiente comando:
+
+```bash
+docker run --name halloween -p 8080:80 -d halloween:multicontext-remote 
+docker rm -f halloween
+```
+
+
 ## 3. Usar otros builders que no sea el por defecto
 
 Si por ejemplo queremos usar un builder de Docker Build Cloud lo hacemos así:
