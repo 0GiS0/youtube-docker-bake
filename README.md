@@ -10,12 +10,30 @@ Así sería el comando si no tuvieramos esta configuración:
 ```bash
 docker build -t tour-of-heroes-api:v1 tour-of-heroes-api
 ```
-
 El archivo `docker-bake.hcl`contiene la configuración para este caso. Para lanzarlo hay que usar este comando:
 
 ```bash
 docker buildx bake
 ```
+
+## 2. Construir más de una imagen a la vez
+
+Imagínate que tienes que construir más de una imagen a la vez. Con Bake puedes hacerlo de forma sencilla. En lugar de lanzar estos dos comandos:
+
+```bash
+docker build -t tour-of-heroes-api:v1 tour-of-heroes-api
+docker build -t tour-of-heroes-web:v1 -f tour-of-heroes-angular/Dockerfile.gh-copilot tour-of-heroes-angular
+```
+
+En el archivo `bake-multiple-images.hcl` se muestra cómo sería la configuración para este caso.
+
+Para lanzarlo hay que usar este comando:
+
+```bash
+docker buildx bake --file bake-multiple-images.hcl
+```
+
+
 
 ## 2. Generar imágen multiplataforma
 
