@@ -1,12 +1,12 @@
 target "default" {  
 
-    context = "./tour-of-heroes-api"
+    context = "."
     
     dockerfile = "Dockerfile"
 
-    tags = ["tour-of-heroes-api:v1"]
+    tags = ["halloween:v1"]
 
     no-cache = true
 
-    platforms = ["linux/amd64", "linux/arm64"]
+    platforms = ["linux/amd64", "linux/arm64", "linux/386"]
 }

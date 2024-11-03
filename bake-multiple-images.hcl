@@ -7,7 +7,7 @@ target "backend" {
     context = "./tour-of-heroes-api"
     dockerfile = "Dockerfile"
 
-    tags = ["tour-of-heroes-api:latest"]
+    tags = ["tour-of-heroes-api:v2"]
 }
 
 target "frontend" {
