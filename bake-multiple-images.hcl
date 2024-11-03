@@ -1,18 +1,5 @@
 group "default" {
-    targets = ["frontend", "backend"]
-}
-
-target "frontend" {
-
-    context = "./tour-of-heroes-angular"
-    dockerfile = "Dockerfile.gh-copilot"
-
-    args = {
-        "NODE_ENV" = "production"
-        "NGINX_VERSION" = "otel"
-    }
-
-    tags = ["tour-of-heroes-web:latest"]
+    targets = ["backend","frontend"]
 }
 
 target "backend" {
@@ -21,4 +8,16 @@ target "backend" {
     dockerfile = "Dockerfile"
 
     tags = ["tour-of-heroes-api:latest"]
+}
+
+target "frontend" {
+
+    context = "./tour-of-heroes-angular"
+    dockerfile = "Dockerfile.gh-copilot"
+
+    args = {        
+        "NGINX_VERSION" = "otel"
+    }
+
+    tags = ["tour-of-heroes-web:${add(123,1)}"]
 }
