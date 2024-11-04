@@ -1,5 +1,5 @@
 variable "TAG" {
-    default = "v3"
+    default = "v4"
 }
 
 target "default" {

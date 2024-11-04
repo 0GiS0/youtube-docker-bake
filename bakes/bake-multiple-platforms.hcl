@@ -4,7 +4,7 @@ target "default" {
     
     dockerfile = "Dockerfile"
 
-    tags = ["halloween:v1"]
+    tags = ["halloween:v4"]
 
     no-cache = true
 

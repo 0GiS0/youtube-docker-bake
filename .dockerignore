@@ -1,0 +1,8 @@
+Dockerfile
+docker-compose.yml
+.git
+bakes
+cache
+docs
+.env
+docker-bake.hcl

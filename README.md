@@ -8,7 +8,7 @@
 Así sería el comando si no tuvieramos esta configuración:
 
 ```bash
-docker build -t tour-of-heroes-api:v1 tour-of-heroes-api
+docker build -t halloween:v1 .
 ```
 El archivo `docker-bake.hcl`contiene la configuración para este caso. Para lanzarlo hay que usar este comando:
 
@@ -21,8 +21,8 @@ docker buildx bake
 Imagínate que tienes que construir más de una imagen a la vez. Con Bake puedes hacerlo de forma sencilla. En lugar de lanzar estos dos comandos:
 
 ```bash
-docker build -t tour-of-heroes-api:v2 tour-of-heroes-api
-docker build -t tour-of-heroes-web:v2-f tour-of-heroes-angular/Dockerfile.gh-copilot tour-of-heroes-angular
+docker build -t tour-of-heroes-api:v1 tour-of-heroes-api
+docker build -t tour-of-heroes-web:v1 -f tour-of-heroes-angular/Dockerfile.gh-copilot tour-of-heroes-angular
 ```
 
 En el archivo `bake-multiple-images.hcl` se muestra cómo sería la configuración para este caso.
@@ -30,19 +30,23 @@ En el archivo `bake-multiple-images.hcl` se muestra cómo sería la configuraci�
 Para lanzarlo hay que usar este comando:
 
 ```bash
-docker buildx bake --file bake-multiple-images.hcl
+docker buildx bake --file bakes/bake-multiple-images.hcl
 ```
 
 ## 3. Generar imágen multiplataforma
 
+Una de las ventajas de usar BuildKit es que podemos generar imágenes multiplataforma:
+
 ```bash
-docker build --platform linux/arm64,linux/amd64,linux/386 -t halloween:v1 .
+docker build --platform linux/arm64,linux/amd64,linux/386 -t halloween:v3 .
+
+docker images --tree
 ```
 
-La configuración equivalente a este comando sería `bake-multiple-platforms.hcl`. En este caso como no estamos utilizando el nombre `docker-bake.hcl`para el archivo de configuración habría que llamarlo de la siguiente forma:
+Si quisieramos hacer esto mismo con Bake, la configuración sería la que se muestra en el archivo `bake-multiple-platforms.hcl`.
 
 ```bash
-docker buildx bake --file bake-multiple-platforms.hcl 
+docker buildx bake --file bakes/bake-multiple-platforms.hcl 
 
 docker images --tree
 ```
@@ -55,20 +59,20 @@ Otra de las opciones avanzadas que podemos utilizar con BuildKit es la de poder 
 docker build \
 --build-context app=./halloween-content \
 --build-context config=https://github.com/0GiS0/youtube-docker-buildx.git#main \
--t halloween:multicontext-remote \
+-t halloween:v5 \
 -f Dockerfile.multicontext.remote .
 ```
 
 En el archivo bake-multicontext.hcl se muestra cómo sería la configuración para este caso.
 
 ```bash
-docker buildx bake --file bake-multicontext.hcl
+docker buildx bake --file bakes/bake-multicontext.hcl
 ```
 
 Para probar el resultado puedes lanzar el siguiente comando:
 
 ```bash
-docker run --name halloween -p 8080:80 -d halloween:multicontext-remote 
+docker run --name halloween -p 8080:80 -d halloween:v6
 docker rm -f halloween
 ```
 
@@ -78,13 +82,13 @@ docker rm -f halloween
 Si por ejemplo queremos usar un builder de Docker Build Cloud lo hacemos así:
 
 ```bash
-docker build --builder cloud-0gis0-returngis -t tour-of-heroes-api:v1 tour-of-heroes-api
+docker build --builder cloud-0gis0-returngis -t tour-of-heroes-api:v3 tour-of-heroes-api
 ```
 
 Y lo equivalente en bake estaría en el archivo `bake-other-builders.hcl`.
 
 ```bash
-docker buildx bake --file bake-other-builders.hcl --builder cloud-0gis0-returngis
+docker buildx bake --file bakes/bake-other-builders.hcl --builder cloud-0gis0-returngis
 ```
 
 
@@ -93,13 +97,13 @@ docker buildx bake --file bake-other-builders.hcl --builder cloud-0gis0-returngi
 Y ya por último, si quisieramos exportar/importar la cache, el comando sería:
 
 ```bash
-docker build --build-arg BUILDKIT_INLINE_CACHE=1 --cache-to type=local,dest=./cache -t tour-of-heroes-angular .
+docker build --build-arg BUILDKIT_INLINE_CACHE=1 --cache-to type=local,dest=./cache --cache-from type=local,src=./cache -t tour-of-heroes-web:v3 .
 ```
 
 Y la configuración equivalente en bake estaría en el archivo `bake-cache.hcl`.
 
 ```bash
-docker buildx bake --file bake-cache.hcl
+docker buildx bake --file bakes/bake-cache.hcl
 ```
 
 ## 5. Comprobar que un archivo bake está bien definido
@@ -108,7 +112,7 @@ Puedes usar el parámetro `--check` para comprobar que el archivo bake está bie
 
 ```bash
 # Check that the configuration is correct
-docker buildx bake --call check --file bake-cache.hcl
+docker buildx bake --call check --file bakes/bake-cache.hcl
 ```
 
 ## 5. Monstruo final
@@ -116,7 +120,7 @@ docker buildx bake --call check --file bake-cache.hcl
 Y si juntamos todos los ejemplos en algo que pudiera ser un ejemplo real, tendríamos algo así:
 
 ```bash
-docker buildx bake --file bake-final.hcl
+docker buildx bake --file bakes/bake-final.hcl
 ```
 
 ¡No te olvides de darle una estrella 🌟 al repositorio si te ha gustado el contenido! Y de suscribirte a mi canal de YouTube ❤️
