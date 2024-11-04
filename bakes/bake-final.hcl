@@ -17,8 +17,8 @@ target "backend" {
 
 target "frontend" {
 
-    context = "https://github.com/0GiS0/youtube-docker-bake#main"
-    dockerfile = "tour-of-heroes-angular/Dockerfile.gh-copilot"
+    context = "https://github.com/0GiS0/youtube-docker-bake.git#main"
+    dockerfile = "tour-of-heroes-angular/Dockerfile.remote"
 
     args = {        
         "NGINX_VERSION" = "otel"
