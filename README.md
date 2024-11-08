@@ -111,7 +111,36 @@ docker buildx bake --file bakes/bake-cache.hcl
 Puedes usar el parámetro `--check` para comprobar que el archivo bake está bien definido:
 
 ```bash
-# Check that the configuration is correct
+# Check that the configuration is corr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ect
 docker buildx bake --call check --file bakes/bake-cache.hcl
 ```
 
