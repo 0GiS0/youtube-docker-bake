@@ -12,7 +12,12 @@ target "backend" {
     context = "https://github.com/0GiS0/youtube-docker-bake.git#main"
     dockerfile = "tour-of-heroes-api/Dockerfile.remote"
 
-    tags = ["tour-of-heroes-api:${TAG}"]
+    platforms = ["linux/amd64", "linux/arm64"]
+
+    tags = [
+        "tour-of-heroes-api:${TAG}",
+        "internalcodespacesimages.azurecr.io/tour-of-heroes-api:${TAG}"
+    ]    
 }
 
 target "frontend" {
@@ -32,5 +37,8 @@ target "frontend" {
         "type=local,src=./cache"
     ]
 
+    platforms = ["linux/amd64", "linux/arm64"]
+   
     tags = ["tour-of-heroes-web:${TAG}"]
+
 }
