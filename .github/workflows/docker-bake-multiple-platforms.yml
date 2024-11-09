@@ -1,0 +1,17 @@
+name: Execute Docker Bake for multi platform image on GitHub Actions
+
+on:
+    push:
+        branches:
+        - main
+
+jobs:
+    execute-docker-bake:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Execute Docker Bake
+          run: docker buildx bake --file bakes/bake-multiple-platforms.hcl
