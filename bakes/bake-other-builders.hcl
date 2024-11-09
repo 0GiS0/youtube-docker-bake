@@ -1,5 +1,5 @@
 variable "TAG" {
-    default = "v4"
+    default = "v5"
 }
 
 target "default" {
@@ -9,6 +9,4 @@ target "default" {
     dockerfile = "Dockerfile"
 
     tags = ["tour-of-heroes-api:${TAG}"]
-
-    builder = "0gis0-cloud-returngis"
 }

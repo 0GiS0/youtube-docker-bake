@@ -11,5 +11,5 @@ target "default" {
     context = "./tour-of-heroes-angular"
     dockerfile = "Dockerfile.gh-copilot"
 
-    tags = ["tour-of-heroes-web:v4"]
+    tags = ["tour-of-heroes-web:cache"]
 }

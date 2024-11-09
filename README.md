@@ -1,6 +1,6 @@
 # Demos de Bake
 
-¡Hola developer 👋🏻! Este repositorio contiene las demos de mi vídeo **15. Docker Builds como código**. Se trata de una herramienta, por ahora en fase experimental, que nos permite usar archivos para definir la configuración, o los parámetros, que tendrá nuestro comando `docker build` haciendo que incluso podamos lanzar múltiples build de forma concurrente con una sola invocación.
+¡Hola developer 👋🏻! Este repositorio contiene las demos de mi vídeo **15. Docker Builds como código**. Se trata de una herramienta, por ahora en fase experimental, que nos permite usar archivos para definir la configuración y los parámetros que tendrá nuestro comando `docker build` haciendo que incluso podamos lanzar múltiples build de forma concurrente con una sola invocación.
 
 
 ## 1. Configuración básica
@@ -46,7 +46,9 @@ docker images --tree
 Si quisieramos hacer esto mismo con Bake, la configuración sería la que se muestra en el archivo `bake-multiple-platforms.hcl`.
 
 ```bash
-docker buildx bake --file bakes/bake-multiple-platforms.hcl 
+docker buildx create --name mybuilder --use 
+
+docker buildx bake --file bakes/bake-multiple-platforms.hcl --load # --load does not work in ARM machines
 
 docker images --tree
 ```
@@ -82,6 +84,8 @@ docker rm -f halloween
 Si por ejemplo queremos usar un builder de Docker Build Cloud lo hacemos así:
 
 ```bash
+docker buildx create --driver cloud 0gis0/returngis
+
 docker build --builder cloud-0gis0-returngis -t tour-of-heroes-api:v3 tour-of-heroes-api
 ```
 
@@ -103,7 +107,7 @@ docker build --build-arg BUILDKIT_INLINE_CACHE=1 --cache-to type=local,dest=./ca
 Y la configuración equivalente en bake estaría en el archivo `bake-cache.hcl`.
 
 ```bash
-docker buildx bake --file bakes/bake-cache.hcl
+docker buildx bake --file bakes/bake-cache.hcl --load
 ```
 
 ## 5. Comprobar que un archivo bake está bien definido
@@ -111,10 +115,16 @@ docker buildx bake --file bakes/bake-cache.hcl
 Puedes usar el parámetro `--check` para comprobar que el archivo bake está bien definido:
 
 ```bash
-# Check that the configuration is corr
+docker buildx bake --file bakes/bake-cache.hcl --check
+```
 
+## 6. Combinación de todos los ejemplos
 
+Y si juntamos todos los ejemplos en algo que pudiera ser un ejemplo real, tendríamos algo así:
 
+```bash
+docker buildx bake --file bakes/bake-final.hcl
+```
 
 
 
