@@ -4,9 +4,11 @@ target "default" {
     
     dockerfile = "Dockerfile"
 
-    tags = ["halloween:v4"]
-
-    no-cache = true
+    tags = ["halloween:multi-platforms"]
 
     platforms = ["linux/amd64", "linux/arm64", "linux/386"]
 }
+
+
+
+£
