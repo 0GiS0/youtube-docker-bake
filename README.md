@@ -2,7 +2,7 @@
 
 ¡Hola developer 👋🏻! Este repositorio contiene las demos de mi vídeo [15. Docker Builds como código](https://youtu.be/_lzDrXJssw8). 
 
-[![Docker Builds como código](https://img.youtube.com/vi/_lzDrXJssw8/0.jpg)](https://youtu.be/_lzDrXJssw8)
+[![Docker Builds como código](docs/images/Serie%20Contenedores%20-%20Episodio%2015.png)](https://youtu.be/_lzDrXJssw8)
 
 Se trata de una herramienta, por ahora en fase experimental, que nos permite usar archivos para definir la configuración y los parámetros que tendrá nuestro comando `docker build` haciendo que incluso podamos lanzar múltiples build de forma concurrente con una sola invocación.
 
