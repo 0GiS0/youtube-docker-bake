@@ -130,6 +130,6 @@ Y si juntamos todos los ejemplos en algo que pudiera ser un ejemplo real, tendr�
 docker buildx bake --file bakes/bake-final.hcl
 ```
 
-¡No te olvides de darle una estrella 🌟 al repositorio si te ha gustado el contenido! Y de suscribirte a mi canal de YouTube ❤️
+¡No te olvides de darle una estrella 🌟 al repositorio si te ha gustado el contenido! Y de [suscribirte a mi canal de YouTube](https://www.youtube.com/@returngis) ❤️
 
 ¡Nos vemos! 👋🏻
